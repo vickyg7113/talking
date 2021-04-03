@@ -1,4 +1,4 @@
- <html>
+<html>
   <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -106,6 +106,24 @@
          left:42.5%;
          transform:translate(0%,0%);
        }
+       .gif
+       {
+         height:400px;
+         width:400px;
+       }
+     }
+     .gif
+     {
+       height:200px;
+       width:200px;
+       display:block;
+       margin-left:auto;
+       margin-right:auto;
+       margin-top:20px;
+     }
+     #hide
+     {
+       display:none;
      }
     </style>
     <script>
@@ -120,11 +138,12 @@
         var recognition = new SpeechRecognition();
         recognition.onstart = function()
         {
-          action.innerHTML = "<p>Listening....</p>";
+          action.innerHTML = '<img class="gif" src="listen.gif"/>';
         }
         recognition.onspeechend = function()
         {
-          action.innerHTML = "<p>Listening done...</p>";
+          action.innerHTML = '<img class="gif" id="gif" src="talk.gif"/>';
+          var gif = document.getElementById("gif");
           recognition.stop();
         }
         recognition.onresult = function(event)
@@ -137,6 +156,7 @@
           speech.rate = 1;
           speech.pitch = 1;
           window.speechSynthesis.speak(speech);
+          setTimeout(() => action.removeChild(gif),3000);
         }
 
         recognition.start();
@@ -151,8 +171,9 @@
       <h1 style="padding-left:50px;font-family:cursive;font-weight:400%%;">Let's have some fun with words!!</h1>
     </header>
    <div class="cont1">
-      <button type="button" class="btn btn-danger btn-lg" onclick="speechRec()">Chat with me!😜<span id="action"></span></button>
+      <button type="button" class="btn btn-danger btn-lg" onclick="speechRec()">Click to Speak</button>
     </div>
+    <div id="action"></div>
     <div id="loadI">
       <div class="round">
       </div>
@@ -161,3 +182,6 @@
     </div>
   </body>
 </html>
+       
+
+      
